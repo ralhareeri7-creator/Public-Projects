@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+
+// Helper function to read input safely
+void read_line(const char *prompt, char *buffer, size_t size) {
+    printf("%s", prompt);
+    if (fgets(buffer, size, stdin) != NULL) {
+        // Remove trailing newline
+        size_t len = strlen(buffer);
+        if (len > 0 && buffer[len - 1] == '\n') {
+            buffer[len - 1] = '\0';
+        }
+    }
+}
+
+char *IDEAS[] = {"read", "journal", "walk", "run", "workout", "lift weights", "draw", "color", "bake", "cook",
+    "take a course", "watch a podcast", "clean your room", "clean the house", "wash the dishes", "say hi to your neighbor", "go to the beach", "write", "garden", "put on makeup",
+    "do your hair", "skincare", "go shopping", "paint", "do pottery art", "go to a museum", "dance", "sing", "write a letter", "visit a senior center",
+    "go to the zoo", "go to the park", "rearrange your room", "learn a new skill", "try vibe coding", "learn how to open a business",
+    "make a slideshow presentation", "learn a new language", "visit your public library", "make a vision board",
+    "do your nails", "go to a salon", "get a massage", "touch grass", "call a friend",
+    "go out with family", "travel", "complete a word search puzzle", "go to a cafe", "try yoga", "try pilates", "shower", "take a nap", "meal plan", "fold laundry", "go to a farmers market",
+    "attend a sports match", "learn a new sport", "attend a concert or comedy show", "meditate", "light a candle", "make your bed", "delete old emails", "wipe your phone or laptop",
+    "schedule an overdue appointment", "water your plants", "play Sudoku", "crochet", "learn to knit",
+    "listen to music", "organize your backpack", "organize your desktop", "watch a documentary", "learn chess", "play chess", "practice typing", "write a poem", "start a scrapbook", "create a budget",
+    "go biking", "go hiking", "feed the birds", "visit a new restaurant", "cook a new recipe", "volunteer", "help a family member", "learn first aid", "practice photography", "solve a puzzle",
+    "learn origami", "clean your closet", "make a gratitude list", "practice a speech", "learn calligraphy", "create digital art", "study for class", "review your goals", "plan your week", "learn a keyboard shortcut"};
+
+int main(void)
+{
+    // Seed random number generator
+    srand(time(NULL));
+
+    // Declare input buffers (fixed size arrays)
+    char name[100];
+    char input[100];
+
+    printf("Welcome to 'Things To Do Instead of Scrolling' Program\n");
+
+    read_line("What is your name?\n", name, sizeof(name));
+    printf("Hi, %s\n", name);
+    printf("Okay, let's get started\n");
+
+    do
+    {
+        read_line("Type 'generate' to generate an activity to do instead of scrolling:\n", input, sizeof(input));
+        // Convert input to lowercase
+        for (size_t i = 0; i < strlen(input); i++)
+        {
+            input[i] = (char) tolower((unsigned char) input[i]);
+        }
+    }
+    while (strcmp(input, "generate") != 0);
+
+    // Generate and print a random activity
+    int random_idea = rand() % (int) (sizeof(IDEAS) / sizeof(IDEAS[0]));
+    printf("%s\n", IDEAS[random_idea]);
+    printf("Thank you for playing!\n");
+
+    return 0;
+}
